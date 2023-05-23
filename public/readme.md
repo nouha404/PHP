@@ -1,4 +1,4 @@
-### correspond de categorie ( du prof )
+### Test
 ```php
 
 // correction du proff
@@ -43,6 +43,7 @@ foreach($i=1; $i<5;i++) {
 
 ### Role de Index
 Index doit seulement savoir qui il doit appeler mais pas de faire le traitement ( les services ) de lister etc
+<<<<<<< HEAD
 
 Le service sera dans le dossier controller ( en web on ne parle pas de service ) il a deux role : creer les fonctionalités et de charger une view ( 3 mais tkt )
 
