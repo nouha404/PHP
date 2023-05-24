@@ -1,4 +1,5 @@
 <?php
+require_once "../models/Model.php";
 require_once "../models/CategorieModel.php";
 require_once "../models/ArticleModel.php";
 require_once "../models/ArticleConfectionModel.php";
@@ -9,16 +10,26 @@ class StockController {
     public function listerCategory(){
         //recois une request
         //realise une fonctionnalité
+        
+        $categorieModel = new CategorieModel();
+        $arrayCategorie = $categorieModel->findAll();
 
-        $arrayCategorie = [];
+        // creer 5 categorie
         for($i=1;$i<=5;$i++){
-            $category = new CategorieModel();
-
-            $category->setId($i)
-                    ->setLibelle("cate".$i);
-            
-            $arrayCategorie[] = $category;
+            $categorieModel->setLibelle('categorie'.$i);
+            $categorieModel->insert();
         }
+
+
+        //plus besoin de generer des donnée on recupere celle de la db
+        // for($i=1;$i<=5;$i++){
+        //     $category = new CategorieModel();
+
+        //     $category->setId($i)
+        //             ->setLibelle("cate".$i);
+            
+        //     $arrayCategorie[] = $category;
+        // }
         // produit une response => html
         require_once "../views/categories/categorie.html.php";
     }

@@ -1,10 +1,21 @@
 <?php
 
-class CategorieModel {
+class CategorieModel extends Model{
     private int $id;
     private string $libelle;
 
-    public function __construct(){}
+    public function __construct(){
+        parent::__construct();
+        $this->databaseTable="Categorie";
+    }
+
+    public function insert():int {
+        $sql = "INSERT INTO $this->databaseTable `(`id`,`libelle`) VALUES (id=NULL, :libelle) ";
+        $stm = $this->pdo->prepare($sql); 
+        $stm->execute(["libelle"=>$this->libelle]);
+        return $stm->rowCount();
+    }
+
 
     /**
      * Get the value of id

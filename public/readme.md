@@ -70,3 +70,21 @@ if($_GET['page'] == 'article'){
 }else if($_GET['page'] == 'category'){
     $controller->listerCategory();
 }
+
+#### prepare
+
+
+```php
+"
+avec prepare et quand on a un parametre, on utilise un joker et fetch ne peut prendre en parametre d'ou on fait appel a setFetchMode. Quand on a un parametre que l'on doit recherche on utilise execute
+"
+  public function findById(int $id):self {
+        $sql = "SELECT * FROM Categorie WHERE id=:x";
+        $stm = $this->pdo->prepare($sql); 
+        $stm->execute(["x"=>$id]);
+        $stm->setFetchMode(\PDO::FETCH_CLASS,self::class); 
+        return $stm->fetch();
+    }
+
+// en code (pas uml) c'est toujour le one qui migre vers le many
+```

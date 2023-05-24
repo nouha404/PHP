@@ -1,14 +1,33 @@
 <?php
 
-abstract class ArticleModel {
+abstract class ArticleModel extends Model{
     //quand on mets abstract on ne peut pas l'hydrater ; la veut creer soit des artcile de vente ou des article de confection du coup donc dans ce cas la classe article est une classe abstract (qui ne produit pas d'objet)
     protected int $id;
     protected string $libelle;
     protected float $prixAchat;
     protected int $qteStock;
     protected string $type;
+    protected int $categorie_id;
 
-    public function __construct(){}
+    public function __construct(){
+        parent::__construct();
+        $this->databaseTable="Article";
+    }
+
+    // on va y revenir
+    public function insert():int {
+        $sql = "INSERT INTO $this->databaseTable  VALUES (NULL, :libelle, :prixAchat, :qteStock, :type`, :dateProduction:, :fournisseur, :categorie_id) ";
+        $stm = $this->pdo->prepare($sql); 
+        $stm->execute(["libelle"=>$this->libelle,
+                    "prixAchat"=>$this->prixAchat,
+                    "qteStock"=>$this->qteStock,
+                    "type"=>$this->type,
+                    "dateProduction"=>NULL,
+                    "fournisseur"=>NULL,
+                    "categorie_id"=>$this->categorie_id //prochaine fois on gere ca 
+                    ]);
+        return $stm->rowCount();
+    }
 
     /**
      * Get the value of id
@@ -110,6 +129,26 @@ abstract class ArticleModel {
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of categorie_id
+     */ 
+    public function getCategorie_id()
+    {
+        return $this->categorie_id;
+    }
+
+    /**
+     * Set the value of categorie_id
+     *
+     * @return  self
+     */ 
+    public function setCategorie_id($categorie_id)
+    {
+        $this->categorie_id = $categorie_id;
 
         return $this;
     }
