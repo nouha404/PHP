@@ -1,12 +1,12 @@
 <?php
 
-abstract class ArticleModel extends Model{
+ class ArticleModel extends Model{
     //quand on mets abstract on ne peut pas l'hydrater ; la veut creer soit des artcile de vente ou des article de confection du coup donc dans ce cas la classe article est une classe abstract (qui ne produit pas d'objet)
     protected int $id;
     protected string $libelle;
     protected float $prixAchat;
     protected int $qteStock;
-    protected string $type;
+    protected string $type="Article";
     protected int $categorie_id;
 
     public function __construct(){

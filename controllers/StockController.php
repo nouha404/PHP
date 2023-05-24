@@ -36,28 +36,30 @@ class StockController {
 
     public function listerArticles(){
         $arrayArticle = [];
-
+        $article = new ArticleModel();
         for($i=1;$i<=10;$i++){
             // creer des articles en alternance
             if($i%2 == 0){
-                $article = new ArticleConfectionModel();
+                // $article = new ArticleConfectionModel();
                 $article->setId($i)
                         ->setLibelle("article confection ".$i)
                         ->setPrixAchat($i+105)
                         ->setQteStock($i*50);
-                $article->setFourniseur("Fournisseur".$i);
+                // $article->setFourniseur("Fournisseur".$i);
             } else {
-                $article = new ArticleVenteModel();
+                // $article = new ArticleVenteModel();
                 $article->setId($i)
                 ->setLibelle("article Vente ".$i)
                 ->setPrixAchat($i+90)
-                ->setQteStock($i+45);
-                $article->setDateProduction("1".$i."-06-2023");
+                ->setQteStock($i+45)
+                ->setCategorie_id(1);
+                // $article->setDateProduction("1".$i."-06-2023");
+                
                 
             }
-            
-            $arrayArticle[] = $article;
+            $article->insert();
         }
+        $arrayArticle = $article->findAll();
         
         require_once "../views/articles/article.html.php";
     }
